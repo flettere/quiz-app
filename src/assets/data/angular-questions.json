@@ -1,0 +1,65 @@
+[
+    {
+        "text": "An angular guard is...",
+        "options": [
+            {
+                "value": "a",
+                "text": 14
+            },
+            {
+                "value": "b",
+                "text": "Interface that a class can implement to be a guard deciding if a route can be activated."
+            },
+            {
+                "value": "c",
+                "text": 26
+            },
+            {
+                "value": "d",
+                "text": 19
+            }
+        ]
+    },
+    {
+        "text": "You can pass data from the parent component to the child component by using:",
+        "options": [
+            {
+                "value": "a",
+                "text": "@Output()"
+            },
+            {
+                "value": "b",
+                "text": "@Input()"
+            },
+            {
+                "value": "c",
+                "text": "Output"
+            },
+            {
+                "value": "d",
+                "text": "Input"
+            }
+        ]
+    },
+    {
+        "text": "Which directive connects the value of the controls to the data?",
+        "options": [
+            {
+                "value": "a",
+                "text": "ng-app"
+            },
+            {
+                "value": "b",
+                "text": "ng-value"
+            },
+            {
+                "value": "c",
+                "text": "ng-model"
+            },
+            {
+                "value": "d",
+                "text": "ng-init"
+            }
+        ]
+    }
+]

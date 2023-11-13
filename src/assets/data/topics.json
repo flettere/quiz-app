@@ -1,17 +1,14 @@
 [
     {
-        "name": "Angular",
-        "icon": "assets/icons/angular.svg",
-        "path": ""
+        "name": "angular",
+        "icon": "assets/icons/angular.svg"
     },
     {
-        "name": "React",
-        "icon": "assets/icons/react.svg",
-        "path": ""
+        "name": "react",
+        "icon": "assets/icons/react.svg"
     },
     {
-        "name": "Vue",
-        "icon": "assets/icons/vue.png",
-        "path": ""
+        "name": "vue",
+        "icon": "assets/icons/vue.png"
     }
 ]
