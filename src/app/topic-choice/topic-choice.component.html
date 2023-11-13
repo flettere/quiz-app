@@ -1,5 +1,5 @@
-<div class="grid grid-cols-1 lg:grid-cols-3">
-    <div class="m-5 lg:col-start-2">
+<div class="grid grid-cols-1 lg:grid-cols-6">
+    <div class="m-5 lg:col-start-2 lg:col-span-4">
         <h1>Hi Sir!</h1>
         <h3>Choose the quiz topic</h3>
 
@@ -18,7 +18,7 @@
                         [alt]="topic.name"> 
                     <h3 
                         class="!m-0">
-                        {{ topic.name }}
+                        {{ topic.name | titlecase}}
                     </h3>
                 </div>
             </mat-button-toggle>
