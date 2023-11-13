@@ -1,0 +1,36 @@
+<div class="grid grid-cols-1 lg:grid-cols-3">
+    <div class="m-5 lg:col-start-2">
+        <h1>Hi Sir!</h1>
+        <h3>Choose the quiz topic</h3>
+
+        <mat-button-toggle-group
+            class="w-full mb-3" 
+            [vertical]="true"  
+            (change)="choosedTopic($event)">
+            <mat-button-toggle 
+                *ngFor="let topic of topics | async" 
+                [value]="topic">
+                <div class="flex justify-center items-center gap-3">
+                    <img 
+                        *ngIf="topic.icon"
+                        class="w-5 h-auto" 
+                        [src]="topic.icon" 
+                        [alt]="topic.name"> 
+                    <h3 
+                        class="!m-0">
+                        {{ topic.name }}
+                    </h3>
+                </div>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <button 
+            mat-flat-button 
+            color="primary" 
+            class="w-full mt-5" 
+            [disabled]="!topicChoosed"
+            (click)="startQuiz()">
+            Start!
+        </button>
+    </div>
+</div>
