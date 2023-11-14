@@ -5,7 +5,7 @@
 
         <button
             *ngFor="let topic of topics | async"
-            class="w-full mb-2 border border-gray-200 rounded-md"
+            class="w-full h-14 mb-2 border border-gray-200 rounded-md"
             [ngClass]="{'option-selected': topic === topicChoosed}"
             (click)="choosedTopic(topic)">
             <div class="flex justify-center items-center gap-3">
@@ -24,7 +24,7 @@
         <button 
             mat-flat-button 
             color="primary" 
-            class="w-full mt-5" 
+            class="w-full h-14 !mt-10" 
             [disabled]="!topicChoosed"
             (click)="startQuiz()">
             Start!

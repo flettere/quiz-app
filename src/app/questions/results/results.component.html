@@ -12,7 +12,7 @@
                 <h3 class="!italic m-0">{{ isMissing(question.id) ? 'Missing answer' : ''}}</h3>
                 <button
                     *ngFor="let option of question.options"
-                    class="w-full mb-2 border border-gray-200 rounded-md"
+                    class="w-full h-14 mb-2 border border-gray-200 rounded-md"
                     [ngClass]="{'correct-answer': isCorrect(question.id, option.value),
                                 'error-answer': isError(question.id, option.value)}"
                     [disabled]="true">
@@ -30,7 +30,7 @@
             <button 
                 mat-flat-button 
                 color="primary"
-                class="w-full md:w-1/2"  
+                class="w-full h-14 md:w-1/2"  
                 (click)="goToTopicChoice()">
                 Another quiz!
             </button>
