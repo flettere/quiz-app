@@ -10,6 +10,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { ResultsComponent } from "./results/results.component";
+import { Answer } from './answer.model';
 
 @Component({
     selector: 'app-questions',
@@ -24,7 +25,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   questions: Question[] | undefined;
   topic: string | undefined;
   currentQuestion: number = 0;
-  answers: string[] = [];
+  answers: Answer[] = [];
   counter: number = 60;
   quizCompleted: boolean = false;
   
@@ -53,14 +54,14 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    });
   }
 
-  chooseOption(option: string) {
-    this.answers[this.currentQuestion] = option;
+  chooseOption(option: string, questionId: number) {
+    this.answers[this.currentQuestion] = {questionId: questionId, answer: option};
   }
 
   nextQuestion() {
-    if(!this.answers[this.currentQuestion]) {
-      this.answers[this.currentQuestion] = '';
-    }
+    // if(!this.answers[this.currentQuestion]) {
+    //   this.answers[this.currentQuestion] = {questionId: questionId, answer: ''};
+    // }
 
     this.currentQuestion++;
     this.resetCounter();

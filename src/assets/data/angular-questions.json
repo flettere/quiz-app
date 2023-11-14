@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "text": "An angular guard is...",
         "options": [
             {
@@ -21,6 +22,7 @@
         ]
     },
     {
+        "id": 2,
         "text": "You can pass data from the parent component to the child component by using:",
         "options": [
             {
@@ -42,6 +44,7 @@
         ]
     },
     {
+        "id": 3,
         "text": "Which directive connects the value of the controls to the data?",
         "options": [
             {

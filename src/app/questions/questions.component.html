@@ -9,15 +9,15 @@
                         <mat-card-subtitle [ngClass]="{'text-red-600': counter === 0}">{{ counter > 0 ? counter : 'Time expired' }}</mat-card-subtitle>
                     </div>
                     
-                    <h2>{{ currentQuestion + 1 }}. {{ questions[currentQuestion].text }}</h2>
+                    <h2>{{ questions[currentQuestion].id }}. {{ questions[currentQuestion].text }}</h2>
                 </div>
                 <mat-card-content>
                     <button
                         *ngFor="let option of questions[currentQuestion].options"
                         class="w-full mb-2 border border-gray-200 rounded-md"
-                        [ngClass]="{'option-selected': option.value === answers[this.currentQuestion]}"
+                        [ngClass]="{'option-selected': answers[this.currentQuestion] && option.value === answers[this.currentQuestion].answer}"
                         [disabled]="counter === 0"
-                        (click)="chooseOption(option.value)">
+                        (click)="chooseOption(option.value, questions[currentQuestion].id)">
                         <div class="flex justify-center items-center gap-3">
                             <p class="!m-0 whitespace-normal leading-6">
                                 {{ option.text }}

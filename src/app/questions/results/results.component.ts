@@ -4,6 +4,8 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { Question } from '../question.model';
 import { MatButtonModule } from '@angular/material/button';
+import { QuestionsService } from '../questions.service';
+import { Answer } from '../answer.model';
 
 @Component({
   selector: 'app-results',
@@ -20,21 +22,44 @@ export class ResultsComponent implements OnInit {
   questions: Question[] | undefined;
 
   @Input()
-  answers: string[] | undefined;
+  answers: Answer[] | undefined;
 
-  correctAnswers: string[] = ['a', 'c', 'd'];
+  correctAnswers: Answer[] | undefined;
   correctAnswersNumber: number = 0;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private _questionService: QuestionsService) { }
 
   ngOnInit(): void {
-    this.correctAnswers.map((q, index) => {
-      if (this.answers && q === this.answers[index]) this.correctAnswersNumber++;
-    })
+    this._questionService.getAnswersByTopic(this.topic).subscribe(res => {
+      this.correctAnswers = res
+
+      this.correctAnswers.map(q => {
+        let answerPresent = this.answers?.find(a => a.questionId === q.questionId);
+        if (this.answers && answerPresent && q.answer === answerPresent.answer) this.correctAnswersNumber++;
+      })
+    });
   }
 
   goToTopicChoice() {
     this.router.navigate(['/start']);
   }
+
+  isCorrect(questionId: number, option: string): boolean {
+    let correctAnswer = this.correctAnswers?.find(x => x.questionId === questionId);
+    if (correctAnswer?.answer === option) {
+      return true;
+    }
+    return false;
+  }
+
+  isError(questionId: number, option: string): boolean {
+    let answerPresent = this.answers?.find(a => a.questionId === questionId);
+    if (answerPresent && answerPresent.answer === option  && answerPresent.answer !== this.correctAnswers?.find(x => x.questionId === questionId)?.answer) {
+      return true;
+    }
+    return false;
+  }
+
 
 }
