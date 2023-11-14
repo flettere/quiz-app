@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { TopicGuard } from "./topic.guard";
 
 export const routes: Routes = [
     {
@@ -8,10 +9,15 @@ export const routes: Routes = [
     },
     {
         path: 'start',
-        loadComponent: () => import('./topic-choice/topic-choice.component').then((m) => m.TopicChoiceComponent)
+        loadChildren: () => import('./topic-choice/topic.routes').then(m => m.routes)
     },
     {
-        path: 'quiz/:topic',
-        loadComponent: () => import('./questions/questions.component').then((m) => m.QuestionsComponent)
+        path: 'quiz',
+        loadChildren: () => import('./questions/questions.routes').then(m => m.routes),
+        canLoad: [TopicGuard]
+    },
+    {
+        path: '**',
+        redirectTo: 'start'
     }
 ]
