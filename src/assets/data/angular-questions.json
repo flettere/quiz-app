@@ -64,5 +64,159 @@
                 "text": "ng-init"
             }
         ]
+    },
+    {
+        "id": 4,
+        "text": "Which decorator is used for making the class a service?",
+        "options": [
+            {
+                "value": "a",
+                "text": "@Component"
+            },
+            {
+                "value": "b",
+                "text": "@Service"
+            },
+            {
+                "value": "c",
+                "text": "@Injector"
+            },
+            {
+                "value": "d",
+                "text": "@Injectable"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "text": "AOT refers to...",
+        "options": [
+            {
+                "value": "a",
+                "text": "Angular Object Templates"
+            },
+            {
+                "value": "b",
+                "text": "Ahead of Time compilation"
+            },
+            {
+                "value": "c",
+                "text": "Both A and B"
+            },
+            {
+                "value": "d",
+                "text": "None of the above"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "text": "Which of the below is not a hook application life cycle?",
+        "options": [
+            {
+                "value": "a",
+                "text": "ngViewStart"
+            },
+            {
+                "value": "b",
+                "text": "ngOnInit"
+            },
+            {
+                "value": "c",
+                "text": "ngOnChanges"
+            },
+            {
+                "value": "d",
+                "text": "ngAfterContentChecked"
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "text": "What is the correct way to set up a template variable?",
+        "options": [
+            {
+                "value": "a",
+                "text": "<input phone placeholder=\"phone number\" />"
+            },
+            {
+                "value": "b",
+                "text": "<input let-phone placeholder=\"phone number\" />"
+            },
+            {
+                "value": "c",
+                "text": "<input #phone placeholder=\"phone number\" />"
+            },
+            {
+                "value": "d",
+                "text": "None of the above"
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "text": "A pipe allows us to...",
+        "options": [
+            {
+                "value": "a",
+                "text": "Create a queue of components to render"
+            },
+            {
+                "value": "b",
+                "text": "Chain multiple method calls together"
+            },
+            {
+                "value": "c",
+                "text": "Binding a property"
+            },
+            {
+                "value": "d",
+                "text": "Transform values that are rendered in the template"
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "text": "What is the correct way to navigate to another route in Angular from the template?",
+        "options": [
+            {
+                "value": "a",
+                "text": "<a href=\"/settings\">Settings</a>"
+            },
+            {
+                "value": "b",
+                "text": "<a url=\"/settings\">Settings</a>"
+            },
+            {
+                "value": "c",
+                "text": "<a navigate=\"/settings\">Settings</a>"
+            },
+            {
+                "value": "d",
+                "text": "<a routerLink=\"/settings\">Settings</a>"
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "text": "What is the correct syntax for making an HTTP request?",
+        "options": [
+            {
+                "value": "a",
+                "text": "this.http.subscribe(\"someapi\")"
+            },
+            {
+                "value": "b",
+                "text": "this.http.request(\"someapi\")"
+            },
+            {
+                "value": "c",
+                "text": "this.http.get(\"someapi\")"
+            },
+            {
+                "value": "d",
+                "text": "this.http.then(\"someapi\")"
+            }
+        ]
     }
 ]

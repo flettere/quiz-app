@@ -9,6 +9,34 @@
     },
     {
         "questionId": 3,
+        "answer": "c"
+    },
+    {
+        "questionId": 4,
+        "answer": "d"
+    },
+    {
+        "questionId": 5,
         "answer": "b"
+    },
+    {
+        "questionId": 6,
+        "answer": "a"
+    },
+    {
+        "questionId": 7,
+        "answer": "c"
+    },
+    {
+        "questionId": 8,
+        "answer": "d"
+    },
+    {
+        "questionId": 9,
+        "answer": "d"
+    },
+    {
+        "questionId": 10,
+        "answer": "c"
     }
 ]
