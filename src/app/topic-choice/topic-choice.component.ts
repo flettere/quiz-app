@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Topic } from './topic.model';
 import { TopicService } from './topic.service';
 import { Observable } from 'rxjs';
-import { AsyncPipe, NgFor, NgIf, TitleCasePipe } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import { Router } from '@angular/router';
 
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './topic-choice.component.html',
   styleUrls: ['./topic-choice.component.scss'],
   standalone: true,
-  imports: [AsyncPipe, NgFor, NgIf, MatButtonModule, MatButtonToggleModule, MatIconModule, TitleCasePipe]
+  imports: [AsyncPipe, NgFor, NgIf, MatButtonModule, MatIconModule, TitleCasePipe, NgClass]
 })
 export class TopicChoiceComponent implements OnInit {
   topics: Observable<Topic[]> | undefined;
@@ -26,8 +25,8 @@ export class TopicChoiceComponent implements OnInit {
     this.topics = this._topicService.getAllTopics();
   }
 
-  choosedTopic(event: any) {
-    this.topicChoosed = event.value;
+  choosedTopic(topic: Topic) {
+    this.topicChoosed = topic;
   }
 
   startQuiz() {

@@ -2,18 +2,21 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Question } from './question.model';
 import { QuestionsService } from './questions.service';
 import { Subscription, interval } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgClass, NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+import { ResultsComponent } from "./results/results.component";
 
 @Component({
-  selector: 'app-questions',
-  templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.scss'],
-  standalone: true,
-  imports: [NgFor, NgIf, MatButtonModule, MatButtonToggleModule, TitleCasePipe, NgClass, MatProgressBarModule]
+    selector: 'app-questions',
+    templateUrl: './questions.component.html',
+    styleUrls: ['./questions.component.scss'],
+    standalone: true,
+    imports: [NgFor, NgIf, MatButtonModule, MatButtonToggleModule, TitleCasePipe, NgClass, MatProgressBarModule, MatDividerModule, MatCardModule, ResultsComponent]
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
   private _routeSubscription: Subscription | undefined;
@@ -26,7 +29,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   quizCompleted: boolean = false;
   
   constructor(private _questionService: QuestionsService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.getQuestions();
@@ -49,8 +53,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
    });
   }
 
-  chooseOption(event: any) {
-    this.answers[this.currentQuestion] = event.value;
+  chooseOption(option: string) {
+    this.answers[this.currentQuestion] = option;
   }
 
   nextQuestion() {
@@ -62,7 +66,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.resetCounter();
 
     if (this.questions && this.currentQuestion === this.questions.length) {
-      console.log(this.answers)
       this.quizCompleted = true;
     }
   }
@@ -82,6 +85,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.stopCounter();
     this.counter = 60;
     this.startCounter();
+  }
+
+  goToTopicChoice() {
+    this.router.navigate(['/start']);
   }
 
 }

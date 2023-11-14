@@ -1,55 +1,78 @@
-<div class="grid grid-cols-1 lg:grid-cols-6">
-    <div class="m-5 lg:col-start-2 lg:col-span-4" *ngIf="questions">
-        <h1 *ngIf="topic">Topic: {{topic | titlecase}}</h1>
+<div class="grid grid-cols-1 lg:grid-cols-4">
+    <div class="m-5 lg:col-start-2 lg:col-span-2">
 
-        <ng-container *ngIf="questions[currentQuestion]">
-            <div class="flex flex-col my-5">
-                <div class="flex justify-between">
-                    <h1 class="!italic" color="primary">Question {{ currentQuestion + 1 }}</h1>
-                    <h1 [ngClass]="{'text-red-600': counter === 0}">{{ counter > 0 ? counter : 'Time expired' }}</h1>
-                </div>
-    
-                <mat-progress-bar mode="determinate" [value]="(currentQuestion + 1)*(100/questions.length)"></mat-progress-bar>
-            </div>
-            
-            
-            <h2>{{ questions[currentQuestion].text }}</h2>
-    
-            <mat-button-toggle-group
-                class="w-full mb-3" 
-                [vertical]="true"
-                [value]="answers[currentQuestion]"
-                (change)="chooseOption($event)"
-                [disabled]="counter === 0">
-                <mat-button-toggle 
-                    *ngFor="let option of questions[currentQuestion].options" 
-                    [value]="option.value">
-                    <div class="flex justify-center items-center gap-3">
-                        <p class="!m-0 whitespace-normal leading-6">
-                            {{ option.text }}
-                        </p>
+        <ng-container *ngIf="questions; else noQuestion">
+            <mat-card *ngIf="!quizCompleted; else result">
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-between items-center">
+                        <mat-card-subtitle>{{topic | titlecase}} Quiz</mat-card-subtitle>
+                        <mat-card-subtitle [ngClass]="{'text-red-600': counter === 0}">{{ counter > 0 ? counter : 'Time expired' }}</mat-card-subtitle>
                     </div>
-                </mat-button-toggle>
-            </mat-button-toggle-group>
-    
-            <div class="grid grid-cols-1 lg:grid-cols-3">
-                <button 
-                    mat-flat-button 
-                    color="primary" 
-                    class="lg:col-start-2 lg:col-span-1 mt-5" 
-                    [disabled]="!answers[currentQuestion] && counter > 0"
-                    (click)="nextQuestion()">
-                    {{ currentQuestion < questions.length - 1 ? 'Next' : 'Finish' }}
-                </button>
-            </div>
-            
+                    
+                    <h2>{{ currentQuestion + 1 }}. {{ questions[currentQuestion].text }}</h2>
+                </div>
+                <mat-card-content>
+                    <button
+                        *ngFor="let option of questions[currentQuestion].options"
+                        class="w-full mb-2 border border-gray-200 rounded-md"
+                        [ngClass]="{'option-selected': option.value === answers[this.currentQuestion]}"
+                        [disabled]="counter === 0"
+                        (click)="chooseOption(option.value)">
+                        <div class="flex justify-center items-center gap-3">
+                            <p class="!m-0 whitespace-normal leading-6">
+                                {{ option.text }}
+                            </p>
+                        </div>
+                    </button>
+                </mat-card-content>
+                <mat-card-actions>
+                    <div class="flex justify-center items-center">
+                        <button 
+                            mat-flat-button 
+                            color="primary"
+                            class="w-full md:w-1/2"  
+                            [disabled]="!answers[currentQuestion] && counter > 0"
+                            (click)="nextQuestion()">
+                            {{ currentQuestion < questions.length - 1 ? 'Next' : 'Finish' }}
+                        </button>
+                    </div>
+                </mat-card-actions>
+                <mat-card-footer>
+                    <mat-progress-bar mode="determinate" [value]="(currentQuestion + 1)*(100/questions.length)"></mat-progress-bar>
+                </mat-card-footer>
+            </mat-card>
+
+            <ng-template #result>
+                <app-results
+                    [topic]="topic"
+                    [questions]="questions"
+                    [answers]="answers"></app-results>
+            </ng-template>
         </ng-container>
 
-        <ng-container *ngIf="quizCompleted">
-            <ng-container *ngFor="let a of answers">
-                <h3>{{ a !== '' ? a : 'non risposto' }}</h3>
-            </ng-container>
-            
-        </ng-container>
+        
+        <ng-template #noQuestion>
+            <mat-card>
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-between items-center">
+                        <mat-card-subtitle>{{topic | titlecase}} Quiz</mat-card-subtitle>
+                    </div>
+                </div>
+                <mat-card-content>
+                    <h2>There are no questions for this topic.</h2>
+                </mat-card-content>
+                <mat-card-actions>
+                    <div class="flex justify-center items-center">
+                        <button 
+                            mat-flat-button 
+                            color="primary"
+                            class="w-full md:w-1/2"  
+                            (click)="goToTopicChoice()">
+                            Choose another one
+                        </button>
+                    </div>
+                </mat-card-actions>
+            </mat-card>
+        </ng-template>
     </div>
 </div>
