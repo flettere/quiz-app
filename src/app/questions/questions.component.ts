@@ -22,12 +22,13 @@ import { Answer } from './answer.model';
 export class QuestionsComponent implements OnInit, OnDestroy {
   private _routeSubscription: Subscription | undefined;
   private _intervalSubscription: Subscription | undefined;
-  questions: Question[] | undefined;
+  questions: Question[] = [];
   topic: string | undefined;
   currentQuestion: number = 0;
   answers: Answer[] = [];
   counter: number = 60;
   quizCompleted: boolean = false;
+  noQuestions: boolean = false;
   
   constructor(private _questionService: QuestionsService,
               private route: ActivatedRoute,
@@ -48,21 +49,26 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       
       this.topic = params['topic'];
 
-      this._questionService.getQuestionsByTopic(this.topic).subscribe(res => this.questions = res);
+      this._questionService.getQuestionsByTopic(this.topic).subscribe({
+        next: (res) => {
+          this.questions = res
+        },
+        error: () => {
+          this.noQuestions = true;
+        }
+      });
 
 
    });
   }
 
   chooseOption(option: string, questionId: number) {
-    this.answers[this.currentQuestion] = {questionId: questionId, answer: option};
+    let answerExists = this.answers.find(x => x.questionId === questionId);
+    if (answerExists) answerExists.answer = option;
+    else this.answers.push({questionId: questionId, answer: option});
   }
 
   nextQuestion() {
-    // if(!this.answers[this.currentQuestion]) {
-    //   this.answers[this.currentQuestion] = {questionId: questionId, answer: ''};
-    // }
-
     this.currentQuestion++;
     this.resetCounter();
 
@@ -92,4 +98,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.router.navigate(['/start']);
   }
 
+  isSelected(questionId: number, option: string): boolean {
+    let answer = this.answers.find(x => x.questionId === questionId);
+    if (answer && answer.answer === option) return true;
+    return false;
+  }
+
+  answerOk(): boolean {
+    return !!this.answers.find(x => x.questionId === this.questions[this.currentQuestion].id);
+  }
 }

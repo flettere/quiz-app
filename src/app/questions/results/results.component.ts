@@ -61,5 +61,9 @@ export class ResultsComponent implements OnInit {
     return false;
   }
 
-
+  isMissing(questionId: number): boolean {
+    let answerPresent = this.answers?.find(a => a.questionId === questionId);
+    if (answerPresent) return false;
+    else return true;
+  }
 }
