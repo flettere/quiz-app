@@ -1,3 +1,11 @@
 <mat-toolbar color="primary">
-    <span>Quiz App</span>
+    <div class="flex justify-between w-full">
+        <span>Quiz App</span>
+        <button 
+            mat-raised-button
+            *ngIf="!isHome"
+            (click)="goHome()">
+            <mat-icon>home</mat-icon>
+        </button>
+    </div>
 </mat-toolbar>
