@@ -105,10 +105,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.startCounter();
   }
 
-  goToTopicChoice() {
-    this.router.navigate(['/start']);
-  }
-
   isSelected(questionId: number, option: string): boolean {
     let answer = this.answers.find(x => x.questionId === questionId);
     if (answer && answer.answer === option) return true;
