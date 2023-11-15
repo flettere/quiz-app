@@ -2,13 +2,5 @@
     {
         "name": "angular",
         "icon": "assets/icons/angular.svg"
-    },
-    {
-        "name": "react",
-        "icon": "assets/icons/react.svg"
-    },
-    {
-        "name": "vue",
-        "icon": "assets/icons/vue.png"
     }
 ]
