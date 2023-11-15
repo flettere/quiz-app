@@ -40,7 +40,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   answers: Answer[] = [];
   counter: number = 60;
   quizCompleted: boolean = false;
-  noQuestions: boolean = false;
   
   constructor(private _questionService: QuestionsService,
               private route: ActivatedRoute,
@@ -68,7 +67,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
             this.spinner.hide();
         },
         error: () => {
-          this.noQuestions = true;
           this.spinner.hide();
         }
       });
