@@ -1,3 +1,7 @@
+<ngx-spinner 
+    type="ball-scale-multiple">
+</ngx-spinner>
+
 <mat-card>
     <mat-card-header>
         <mat-card-subtitle>{{topic | titlecase}} Quiz</mat-card-subtitle>
@@ -26,11 +30,11 @@
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center w-full">
             <button 
                 mat-flat-button 
                 color="primary"
-                class="w-full h-14 md:w-1/2"  
+                class="w-full !h-14 md:w-1/2"  
                 (click)="goToTopicChoice()">
                 Another quiz!
             </button>

@@ -11,17 +11,29 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { ResultsComponent } from "./results/results.component";
 import { Answer } from './answer.model';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-questions',
     templateUrl: './questions.component.html',
     styleUrls: ['./questions.component.scss'],
     standalone: true,
-    imports: [NgFor, NgIf, MatButtonModule, MatButtonToggleModule, TitleCasePipe, NgClass, MatProgressBarModule, MatDividerModule, MatCardModule, ResultsComponent]
+    imports: [NgFor, 
+              NgIf, 
+              MatButtonModule, 
+              MatButtonToggleModule, 
+              TitleCasePipe, 
+              NgClass, 
+              MatProgressBarModule, 
+              MatDividerModule, 
+              MatCardModule, 
+              ResultsComponent, 
+              NgxSpinnerModule]
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
   private _routeSubscription: Subscription | undefined;
   private _intervalSubscription: Subscription | undefined;
+  private _questionsSubscription: Subscription | undefined;
   questions: Question[] = [];
   topic: string | undefined;
   currentQuestion: number = 0;
@@ -32,7 +44,8 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   
   constructor(private _questionService: QuestionsService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getQuestions();
@@ -42,23 +55,23 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._routeSubscription && this._routeSubscription.unsubscribe();
     this._intervalSubscription && this._intervalSubscription.unsubscribe();
+    this._questionsSubscription && this._questionsSubscription.unsubscribe();
   }
 
   getQuestions() {
+    this.spinner.show();
     this._routeSubscription = this.route.params.subscribe(params => {
-      
       this.topic = params['topic'];
-
-      this._questionService.getQuestionsByTopic(this.topic).subscribe({
+      this._questionsSubscription = this._questionService.getQuestionsByTopic(this.topic).subscribe({
         next: (res) => {
-          this.questions = res
+          this.questions = res;
+            this.spinner.hide();
         },
         error: () => {
           this.noQuestions = true;
+          this.spinner.hide();
         }
       });
-
-
    });
   }
 

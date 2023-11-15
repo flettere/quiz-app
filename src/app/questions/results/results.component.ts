@@ -6,15 +6,20 @@ import { Question } from '../question.model';
 import { MatButtonModule } from '@angular/material/button';
 import { QuestionsService } from '../questions.service';
 import { Answer } from '../answer.model';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
+import { OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss'],
   standalone: true,
-  imports: [MatCardModule, TitleCasePipe, NgIf, NgFor, MatButtonModule, NgClass]
+  imports: [MatCardModule, TitleCasePipe, NgIf, NgFor, MatButtonModule, NgClass, NgxSpinnerModule]
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
+  private _answersSubscription: Subscription | undefined;
+  
   @Input()
   topic: string | undefined;
 
@@ -28,17 +33,24 @@ export class ResultsComponent implements OnInit {
   correctAnswersNumber: number = 0;
 
   constructor(private router: Router,
-              private _questionService: QuestionsService) { }
+              private _questionService: QuestionsService,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this._questionService.getAnswersByTopic(this.topic).subscribe(res => {
+    this.spinner.show();
+    this._answersSubscription = this._questionService.getAnswersByTopic(this.topic).subscribe(res => {
       this.correctAnswers = res
 
       this.correctAnswers.map(q => {
         let answerPresent = this.answers?.find(a => a.questionId === q.questionId);
         if (this.answers && answerPresent && q.answer === answerPresent.answer) this.correctAnswersNumber++;
       })
+      this.spinner.hide();
     });
+  }
+
+  ngOnDestroy(): void {
+    this._answersSubscription && this._answersSubscription.unsubscribe();
   }
 
   goToTopicChoice() {

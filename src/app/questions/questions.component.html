@@ -1,17 +1,23 @@
+<ngx-spinner 
+    type="ball-scale-multiple">
+</ngx-spinner>
+
 <div class="grid grid-cols-1 lg:grid-cols-4">
     <div class="m-5 lg:col-start-2 lg:col-span-2">
 
-        <ng-container *ngIf="!noQuestions; else noQuestion">
+        <ng-container *ngIf="questions && questions.length; else noQuestion">
             <!-- QUESTIONS -->
-            <mat-card *ngIf="questions && questions.length && !quizCompleted; else result">
-                <div class="flex flex-col w-full">
-                    <div class="flex justify-between items-center">
-                        <mat-card-subtitle>{{topic | titlecase}} Quiz</mat-card-subtitle>
-                        <mat-card-subtitle [ngClass]="{'text-red-600': counter === 0}">{{ counter > 0 ? counter : 'Time expired' }}</mat-card-subtitle>
+            <mat-card *ngIf="!quizCompleted; else result">
+                <mat-card-header>
+                    <div class="flex flex-col w-full">
+                        <div class="flex justify-between items-center">
+                            <mat-card-subtitle>{{topic | titlecase}} Quiz</mat-card-subtitle>
+                            <mat-card-subtitle [ngClass]="{'text-red-600': counter === 0}">{{ counter > 0 ? counter : 'Time expired' }}</mat-card-subtitle>
+                        </div>
+                        
+                        <h2>{{ questions[currentQuestion].id }}. {{ questions[currentQuestion].text }}</h2>
                     </div>
-                    
-                    <h2>{{ questions[currentQuestion].id }}. {{ questions[currentQuestion].text }}</h2>
-                </div>
+                </mat-card-header>
                 <mat-card-content>
                     <button
                         *ngFor="let option of questions[currentQuestion].options"
@@ -27,11 +33,11 @@
                     </button>
                 </mat-card-content>
                 <mat-card-actions>
-                    <div class="flex justify-center items-center">
+                    <div class="flex justify-center items-center w-full">
                         <button 
                             mat-flat-button 
                             color="primary"
-                            class="w-full h-14 md:w-1/2"  
+                            class="w-full !h-14 md:w-1/2"  
                             [disabled]="!answerOk() && counter > 0"
                             (click)="nextQuestion()">
                             {{ currentQuestion < questions.length - 1 ? 'Next' : 'Finish' }}
@@ -55,20 +61,22 @@
         
         <ng-template #noQuestion>
             <mat-card>
-                <div class="flex flex-col w-full">
-                    <div class="flex justify-between items-center">
-                        <mat-card-subtitle>{{topic | titlecase}} Quiz</mat-card-subtitle>
+                <mat-card-header>
+                    <div class="flex flex-col w-full">
+                        <div class="flex justify-between items-center">
+                            <mat-card-subtitle>{{topic | titlecase}} Quiz</mat-card-subtitle>
+                        </div>
                     </div>
-                </div>
+                </mat-card-header>
                 <mat-card-content>
                     <h2>There are no questions for this topic.</h2>
                 </mat-card-content>
                 <mat-card-actions>
-                    <div class="flex justify-center items-center">
+                    <div class="flex justify-center items-center w-full">
                         <button 
                             mat-flat-button 
                             color="primary"
-                            class="w-full md:w-1/2"  
+                            class="w-full md:w-1/3"  
                             (click)="goToTopicChoice()">
                             Choose another one
                         </button>

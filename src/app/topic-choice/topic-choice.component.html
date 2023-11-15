@@ -1,10 +1,14 @@
+<ngx-spinner 
+    type="ball-scale-multiple">
+</ngx-spinner>
+
 <div class="grid grid-cols-1 lg:grid-cols-4">
-    <div class="m-5 lg:col-start-2 lg:col-span-2">
+    <div class="m-5 lg:col-start-2 lg:col-span-2" *ngIf="topics">
         <h1>Hi Sir!</h1>
         <h3>Choose the quiz topic</h3>
 
         <button
-            *ngFor="let topic of topics | async"
+            *ngFor="let topic of topics"
             class="w-full h-14 mb-2 border border-gray-200 rounded-md"
             [ngClass]="{'option-selected': topic === topicChoosed}"
             (click)="choosedTopic(topic)">
@@ -24,7 +28,7 @@
         <button 
             mat-flat-button 
             color="primary" 
-            class="w-full h-14 !mt-10" 
+            class="w-full !h-14 !mt-10" 
             [disabled]="!topicChoosed"
             (click)="startQuiz()">
             Start!
