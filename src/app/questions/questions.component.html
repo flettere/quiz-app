@@ -2,10 +2,10 @@
     type="ball-scale-multiple">
 </ngx-spinner>
 
-<div class="grid grid-cols-1 lg:grid-cols-4">
+<div class="grid grid-cols-1 lg:grid-cols-4" *ngIf="questions && questions.length">
     <div class="m-5 lg:col-start-2 lg:col-span-2">
         <!-- QUESTIONS -->
-        <mat-card *ngIf="questions && questions.length && !quizCompleted; else result">
+        <mat-card *ngIf="!quizCompleted; else result">
             <mat-card-header>
                 <div class="flex flex-col w-full">
                     <div class="flex justify-between items-center">
