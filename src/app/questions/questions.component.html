@@ -5,9 +5,9 @@
 <div class="grid grid-cols-1 lg:grid-cols-4">
     <div class="m-5 lg:col-start-2 lg:col-span-2">
 
-        <ng-container *ngIf="questions && questions.length; else noQuestion">
+        <ng-container *ngIf="!noQuestions; else noQuestion">
             <!-- QUESTIONS -->
-            <mat-card *ngIf="!quizCompleted; else result">
+            <mat-card *ngIf="questions && questions.length && !quizCompleted; else result">
                 <mat-card-header>
                     <div class="flex flex-col w-full">
                         <div class="flex justify-between items-center">
