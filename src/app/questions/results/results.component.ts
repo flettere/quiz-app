@@ -43,8 +43,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.spinner.show();
 
-    let minutes = Math.floor((this.timeSecondsSpent % 3600) / 60).toString();
-    this.timeSpent = `${minutes.padStart(2, '0')}:${this.timeSecondsSpent}`; 
+    let minutes = Math.floor((this.timeSecondsSpent % 3600) / 60);
+    this.timeSpent = `${minutes.toString().padStart(2, '0')}:${this.timeSecondsSpent < 60 ? this.timeSecondsSpent.toString().padStart(2, '0') : (this.timeSecondsSpent - minutes*60).toString().padStart(2, '0')}`; 
 
     this._answersSubscription = this._questionService.getAnswersByTopic(this.topic).subscribe(res => {
       this.correctAnswers = res
