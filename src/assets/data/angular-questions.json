@@ -4,20 +4,20 @@
         "text": "An angular guard is...",
         "options": [
             {
-                "value": "A particular interceptor",
-                "text": 14
+                "value": "a",
+                "text": "A particular interceptor"
             },
             {
                 "value": "b",
                 "text": "Interface that a class can implement to be a guard deciding if a route can be activated."
             },
             {
-                "value": "Interface that a class can implement to manage reactive forms",
-                "text": 26
+                "value": "c",
+                "text": "Interface that a class can implement to manage reactive forms"
             },
             {
-                "value": "None of the above",
-                "text": 19
+                "value": "d",
+                "text": "None of the above"
             }
         ]
     },
