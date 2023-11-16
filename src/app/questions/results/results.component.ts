@@ -29,8 +29,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
   @Input()
   answers: Answer[] | undefined;
 
+  @Input()
+  timeSecondsSpent: number = 0;
+
   correctAnswers: Answer[] | undefined;
   correctAnswersNumber: number = 0;
+  timeSpent: string | undefined;
 
   constructor(private router: Router,
               private _questionService: QuestionsService,
@@ -38,6 +42,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.spinner.show();
+
+    let minutes = Math.floor((this.timeSecondsSpent % 3600) / 60).toString();
+    this.timeSpent = `${minutes.padStart(2, '0')}:${this.timeSecondsSpent}`; 
+
     this._answersSubscription = this._questionService.getAnswersByTopic(this.topic).subscribe(res => {
       this.correctAnswers = res
 
