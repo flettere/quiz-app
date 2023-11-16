@@ -12,6 +12,9 @@ import { MatCardModule } from '@angular/material/card';
 import { ResultsComponent } from "./results/results.component";
 import { Answer } from './answer.model';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
     selector: 'app-questions',
@@ -28,27 +31,32 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
               MatDividerModule, 
               MatCardModule, 
               ResultsComponent, 
-              NgxSpinnerModule]
+              NgxSpinnerModule,
+              MatIconModule]
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
   private _routeSubscription: Subscription | undefined;
   private _intervalSubscription: Subscription | undefined;
   private _questionsSubscription: Subscription | undefined;
+  private _cronoSubscription: Subscription | undefined;
   questions: Question[] = [];
   topic: string | undefined;
   currentQuestion: number = 0;
   answers: Answer[] = [];
   counter: number = 60;
   quizCompleted: boolean = false;
+  timeSecondsSpent: number = 0;
   
   constructor(private _questionService: QuestionsService,
               private route: ActivatedRoute,
               private router: Router,
-              private spinner: NgxSpinnerService) { }
+              private spinner: NgxSpinnerService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getQuestions();
     this.startCounter();
+    this.startCrono();
   }
 
   ngOnDestroy(): void {
@@ -84,6 +92,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.resetCounter();
 
     if (this.questions && this.currentQuestion === this.questions.length) {
+      this.stopCrono();
       this.quizCompleted = true;
     }
   }
@@ -96,11 +105,12 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   stopCounter() {
     this._intervalSubscription && this._intervalSubscription.unsubscribe();
-    this.counter = 0;
+    // this.counter = 0;
   }
 
   resetCounter() {
     this.stopCounter();
+    //this.timeSecondsSpent += 60 - this.counter;
     this.counter = 60;
     this.startCounter();
   }
@@ -113,5 +123,19 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   answerOk(): boolean {
     return !!this.answers.find(x => x.questionId === this.questions[this.currentQuestion].id);
+  }
+
+  goHome() {
+    this.dialog.open(DialogComponent);
+  }
+
+  startCrono() {
+    this._cronoSubscription = interval(1000).subscribe(val => {
+      this.timeSecondsSpent++;
+    });
+  }
+
+  stopCrono() {
+    this._cronoSubscription && this._cronoSubscription.unsubscribe();
   }
 }
