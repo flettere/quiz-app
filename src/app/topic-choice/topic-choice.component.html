@@ -25,10 +25,17 @@
             </div>
         </button>
 
+        <p 
+            *ngIf="topicChoosed"
+            class="!mt-5">
+            The quiz consists of {{topicChoosed.questionsNumber}} questions. For each one you will have {{topicChoosed.questionSeconds}} seconds available. Are you ready?
+        </p>
+
         <button 
             mat-flat-button 
             color="primary" 
-            class="w-full !h-14 !mt-10" 
+            class="w-full !h-14"
+            [ngClass]="{'!mt-5': !topicChoosed}" 
             [disabled]="!topicChoosed"
             (click)="startQuiz()">
             Start!

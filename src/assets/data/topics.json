@@ -1,6 +1,8 @@
 [
     {
         "name": "angular",
-        "icon": "assets/icons/angular.svg"
+        "icon": "assets/icons/angular.svg",
+        "questionsNumber": 10,
+        "questionSeconds": 60
     }
 ]
