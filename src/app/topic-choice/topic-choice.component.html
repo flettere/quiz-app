@@ -9,8 +9,10 @@
 
         <button
             *ngFor="let topic of topics"
-            class="w-full h-14 mb-2 border border-gray-200 rounded-md"
+            class="w-full h-14 mb-2 border border-gray-200 rounded-md topic"
             [ngClass]="{'option-selected': topic === topicChoosed}"
+            [disabled]="!topic.available"
+            [matTooltip]="!topic.available ? 'Soon available' : ''"
             (click)="choosedTopic(topic)">
             <div class="flex justify-center items-center gap-3">
                 <img 
@@ -31,14 +33,17 @@
             The quiz consists of {{topicChoosed.questionsNumber}} questions. For each one you will have {{topicChoosed.questionSeconds}} seconds available. Are you ready?
         </p>
 
-        <button 
-            mat-flat-button 
-            color="primary" 
-            class="w-full !h-14"
-            [ngClass]="{'!mt-5': !topicChoosed}" 
-            [disabled]="!topicChoosed"
-            (click)="startQuiz()">
-            Start!
-        </button>
+        <div 
+            class="flex justify-center items-center w-full"
+            [ngClass]="{'!mt-5': !topicChoosed}">
+            <button 
+                mat-flat-button 
+                color="primary" 
+                class="w-full !h-14 md:w-1/2" 
+                [disabled]="!topicChoosed"
+                (click)="startQuiz()">
+                Start!
+            </button>
+        </div>
     </div>
 </div>

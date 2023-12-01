@@ -3,6 +3,21 @@
         "name": "angular",
         "icon": "assets/icons/angular.svg",
         "questionsNumber": 10,
-        "questionSeconds": 60
+        "questionSeconds": 60,
+        "available": true
+    },
+    {
+        "name": "React",
+        "icon": "assets/icons/react.svg",
+        "questionsNumber": 10,
+        "questionSeconds": 60,
+        "available": false
+    },
+    {
+        "name": "Vue",
+        "icon": "assets/icons/vue.png",
+        "questionsNumber": 10,
+        "questionSeconds": 60,
+        "available": false
     }
 ]

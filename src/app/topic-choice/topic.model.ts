@@ -3,4 +3,5 @@ export interface Topic {
     icon: string;
     questionsNumber: number;
     questionSeconds: number;
+    available: boolean;
 }

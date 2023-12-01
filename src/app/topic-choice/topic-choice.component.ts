@@ -8,13 +8,14 @@ import { Router } from '@angular/router';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { OnDestroy } from '@angular/core';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-topic-choice',
   templateUrl: './topic-choice.component.html',
   styleUrls: ['./topic-choice.component.scss'],
   standalone: true,
-  imports: [AsyncPipe, NgFor, NgIf, MatButtonModule, MatIconModule, TitleCasePipe, NgClass, NgxSpinnerModule],
+  imports: [AsyncPipe, NgFor, NgIf, MatButtonModule, MatIconModule, TitleCasePipe, NgClass, NgxSpinnerModule, MatTooltipModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TopicChoiceComponent implements OnInit, OnDestroy {
